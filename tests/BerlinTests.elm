@@ -62,6 +62,11 @@ tests =
     , test 
       "Given a time 18:00:00, the single hours row has 4 illuminations" 
       <| assertEqual 3 (Berlin.getSingleHours("1970/01/01 18:00:00"))
+
+    , test 
+      "Given a time 00:00:00, the seconds lamp has 1 illumination" 
+      <| assertEqual 1 (Berlin.getSeconds("1970/01/01 00:00:00"))
+
     ]
 
 
