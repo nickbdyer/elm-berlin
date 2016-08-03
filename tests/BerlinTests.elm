@@ -9,7 +9,11 @@ tests =
     [ 
       test 
       "Given a time 00:00:00, the single minutes row has 0 illuminations" 
-      <| assertEqual 0 (Berlin.getSingleMinutes("00:00:00"))
+      <| assertEqual 0 (Berlin.getSingleMinutes("1970/01/01 00:00:00"))
+
+    , test 
+      "Given a time 00:01:00, the single minutes row has 0 illuminations" 
+      <| assertEqual 1 (Berlin.getSingleMinutes("1970/01/01 00:01:00"))
 
     ]
 
