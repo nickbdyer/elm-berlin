@@ -19,13 +19,13 @@ getSingleHours stringTime =
     |> Date.hour
     |> moduloFive
 
+
 getSeconds : String -> Int
 getSeconds stringTime =
   Date.fromString stringTime
     |> Result.withDefault (Date.fromTime 0)
     |> Date.second
     |> iluminateSeconds 
-
 
 
 modulo =
@@ -37,4 +37,4 @@ moduloFive =
 iluminateSeconds value = 
   case value of
     0 -> 1
-    value -> value `rem` 2
+    value -> (value + 1) `rem` 2
