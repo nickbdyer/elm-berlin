@@ -17,6 +17,7 @@ getFiveMinutes stringTime =
   Date.fromString stringTime
     |> Result.withDefault (Date.fromTime 0)
     |> Date.minute
+    |> (\y x -> x // y) 5
 
 
 getSingleHours : String -> Int
