@@ -3,7 +3,6 @@ module Berlin exposing (getSingleMinutes, getSingleHours, getSeconds, getFiveMin
 
 import Date exposing (fromString)
 
-
 getSingleMinutes : String -> Int
 getSingleMinutes stringTime =
   Date.fromString stringTime

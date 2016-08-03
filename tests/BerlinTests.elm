@@ -110,6 +110,11 @@ tests =
     , test 
       "Given a time 23:00:00, the five hours lamps have 4 illuminations" 
       <| assertEqual 4 (Berlin.getFiveHours("1970/01/01 23:00:00"))
+
+    , test 
+      "Given a time 23:00:00, the five hours lamps have 4 illuminations" 
+      <| assertEqual 4 (Berlin.getFiveHours("1970/01/01 23:00:00"))
+
     ]
 
 
