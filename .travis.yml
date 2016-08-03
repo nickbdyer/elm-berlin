@@ -1,0 +1,8 @@
+language: haskell
+install:
+  - npm install -g elm
+  - elm-package install -y
+cache:
+  directories:
+    - elm-stuff/build-artifacts
+script: sh runtests.sh

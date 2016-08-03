@@ -1,4 +1,4 @@
-module Berlin exposing (getSingleMinutes)
+module Berlin exposing (getSingleMinutes, getSingleHours)
 
 
 import Date exposing (fromString)
@@ -9,6 +9,14 @@ getSingleMinutes stringTime =
   Date.fromString stringTime
     |> Result.withDefault (Date.fromTime 0)
     |> Date.minute
+    |> moduloFive
+
+
+getSingleHours : String -> Int
+getSingleHours stringTime =
+  Date.fromString stringTime
+    |> Result.withDefault (Date.fromTime 0)
+    |> Date.hour
     |> moduloFive
 
 
