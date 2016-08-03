@@ -1,4 +1,4 @@
-module Berlin exposing (getSingleMinutes, getSingleHours, getSeconds, getFiveMinutes)
+module Berlin exposing (getSingleMinutes, getSingleHours, getSeconds, getFiveMinutes, getFiveHours)
 
 
 import Date exposing (fromString)
@@ -26,6 +26,14 @@ getSingleHours stringTime =
     |> Result.withDefault (Date.fromTime 0)
     |> Date.hour
     |> moduloFive
+    
+
+getFiveHours : String -> Int
+getFiveHours stringTime =
+  Date.fromString stringTime
+    |> Result.withDefault (Date.fromTime 0)
+    |> Date.hour
+    |> (\y x -> x // y) 5
 
 
 getSeconds : String -> Int
