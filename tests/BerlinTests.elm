@@ -30,6 +30,10 @@ tests =
     , test 
       "Given a time 00:05:00, the single minutes row has 0 illuminations" 
       <| assertEqual 0 (Berlin.getSingleMinutes("1970/01/01 00:05:00"))
+
+    , test 
+      "Given a time 00:39:00, the single minutes row has 4 illuminations" 
+      <| assertEqual 4 (Berlin.getSingleMinutes("1970/01/01 00:39:00"))
     ]
 
 
