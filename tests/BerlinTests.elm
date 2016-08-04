@@ -11,13 +11,13 @@ tests =
       "Given a time 00:00:00, the single minutes row has 0 illuminations" 
       <| assertEqual "OOOO" (Berlin.getSingleMinutes("1970/01/01 00:00:00"))
 
-    --, test 
-      --"Given a time 00:03:00, the single minutes row has 3 illuminations" 
-      --<| assertEqual "RRRO" (Berlin.getSingleMinutes("1970/01/01 00:03:00"))
+    , test 
+      "Given a time 00:03:00, the single minutes row has 3 illuminations" 
+      <| assertEqual "YYYO" (Berlin.getSingleMinutes("1970/01/01 00:03:00"))
 
-    --, test 
-      --"Given a time 00:05:00, the single minutes row has 0 illuminations" 
-      --<| assertEqual "OOOO" (Berlin.getSingleMinutes("1970/01/01 00:05:00"))
+    , test 
+      "Given a time 00:05:00, the single minutes row has 0 illuminations" 
+      <| assertEqual "OOOO" (Berlin.getSingleMinutes("1970/01/01 00:05:00"))
 
     , test 
       "Given a time 00:00:00, the single hours row has 0 illuminations" 
