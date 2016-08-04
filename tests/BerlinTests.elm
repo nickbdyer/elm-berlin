@@ -9,75 +9,75 @@ tests =
     [ 
       test 
       "Given a time 00:00:00, the single minutes row has 0 illuminations" 
-      <| assertEqual "OOOO" (Berlin.getSingleMinutes(0))
+      <| assertEqual "OOOO" (Berlin.getSingleMinutesLamps(0))
 
     , test 
       "Given a time 00:03:00, the single minutes row has 3 illuminations" 
-      <| assertEqual "YYYO" (Berlin.getSingleMinutes(3))
+      <| assertEqual "YYYO" (Berlin.getSingleMinutesLamps(3))
 
     , test 
       "Given a time 00:05:00, the single minutes row has 0 illuminations" 
-      <| assertEqual "OOOO" (Berlin.getSingleMinutes(5))
+      <| assertEqual "OOOO" (Berlin.getSingleMinutesLamps(5))
 
     , test 
       "Given a time 00:00:00, the single hours row has 0 illuminations" 
-      <| assertEqual "OOOO" (Berlin.getSingleHours(0))
+      <| assertEqual "OOOO" (Berlin.getSingleHoursLamps(0))
 
     , test 
       "Given a time 03:00:00, the single hours row has 3 illuminations" 
-      <| assertEqual "RRRO" (Berlin.getSingleHours(3))
+      <| assertEqual "RRRO" (Berlin.getSingleHoursLamps(3))
 
     , test 
       "Given a time 05:00:00, the single hours row has 0 illuminations" 
-      <| assertEqual "OOOO" (Berlin.getSingleHours(5))
+      <| assertEqual "OOOO" (Berlin.getSingleHoursLamps(5))
 
     , test 
       "Given a time 00:00:00, the seconds lamp has 1 illumination" 
-      <| assertEqual "Y" (Berlin.getSeconds(0))
+      <| assertEqual "Y" (Berlin.getSecondsLamp(0))
 
     , test 
       "Given a time 00:00:01, the seconds lamp has 0 illuminations" 
-      <| assertEqual "O" (Berlin.getSeconds(1))
+      <| assertEqual "O" (Berlin.getSecondsLamp(1))
 
     , test 
       "Given a time 00:00:02, the seconds lamp has 1 illumination" 
-      <| assertEqual "Y" (Berlin.getSeconds(2))
+      <| assertEqual "Y" (Berlin.getSecondsLamp(2))
 
     , test 
       "Given a time 00:00:59, the seconds lamp has 0 illuminations" 
-      <| assertEqual "O" (Berlin.getSeconds(59))
+      <| assertEqual "O" (Berlin.getSecondsLamp(59))
 
     , test 
       "Given a time 00:00:00, the five minutes lamps have 0 illuminations" 
-      <| assertEqual "OOOOOOOOOOO" (Berlin.getFiveMinutes(0))
+      <| assertEqual "OOOOOOOOOOO" (Berlin.getFiveMinutesLamps(0))
 
     , test 
       "Given a time 00:04:00, the five minutes lamps have 0 illuminations" 
-      <| assertEqual "OOOOOOOOOOO" (Berlin.getFiveMinutes(4))
+      <| assertEqual "OOOOOOOOOOO" (Berlin.getFiveMinutesLamps(4))
 
     , test 
       "Given a time 00:14:00, the five minutes lamps have 2 illuminations" 
-      <| assertEqual "YYOOOOOOOOO" (Berlin.getFiveMinutes(14))
+      <| assertEqual "YYOOOOOOOOO" (Berlin.getFiveMinutesLamps(14))
 
     , test 
       "Given a time 00:59:00, the five minutes lamps have 11 illuminations" 
-      <| assertEqual "YYRYYRYYRYY" (Berlin.getFiveMinutes(59))
+      <| assertEqual "YYRYYRYYRYY" (Berlin.getFiveMinutesLamps(59))
 
     , test 
       "Given a time 00:00:00, the five hours lamps have 0 illuminations" 
-      <| assertEqual "OOOO" (Berlin.getFiveHours(0))
+      <| assertEqual "OOOO" (Berlin.getFiveHoursLamps(0))
 
     , test 
       "Given a time 04:00:00, the five hours lamps have 0 illuminations" 
-      <| assertEqual "OOOO" (Berlin.getFiveHours(4))
+      <| assertEqual "OOOO" (Berlin.getFiveHoursLamps(4))
 
     , test 
       "Given a time 14:00:00, the five hours lamps have 2 illuminations" 
-      <| assertEqual "RROO" (Berlin.getFiveHours(14))
+      <| assertEqual "RROO" (Berlin.getFiveHoursLamps(14))
 
     , test 
       "Given a time 23:00:00, the five hours lamps have 4 illuminations" 
-      <| assertEqual "RRRR" (Berlin.getFiveHours(23))
+      <| assertEqual "RRRR" (Berlin.getFiveHoursLamps(23))
 
     , test 
       "Given a time 00:00:00, the clock will show ROOOOOOOOOOOOOOOOOOOOOOO" 

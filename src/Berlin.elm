@@ -1,4 +1,4 @@
-module Berlin exposing (getSingleMinutes, getSingleHours, getSeconds, getFiveMinutes, getFiveHours, getClock)
+module Berlin exposing (getSingleMinutesLamps, getSingleHoursLamps, getSecondsLamp, getFiveMinutesLamps, getFiveHoursLamps, getClock)
 
 
 import Date exposing (fromString, Date)
@@ -9,11 +9,11 @@ getClock : String -> String
 getClock time = 
   let 
       parsedTime = Date.fromString time |> Result.withDefault (Date.fromTime 0) 
-      seconds = getSeconds (Date.second parsedTime)
-      fiveHours = getFiveHours (Date.hour parsedTime)
-      hours = getSingleHours (Date.hour parsedTime)
-      fiveMinutes = getFiveMinutes (Date.minute parsedTime)
-      minutes = getSingleMinutes (Date.minute parsedTime)
+      seconds = getSecondsLamp (Date.second parsedTime)
+      fiveHours = getFiveHoursLamps (Date.hour parsedTime)
+      hours = getSingleHoursLamps (Date.hour parsedTime)
+      fiveMinutes = getFiveMinutesLamps (Date.minute parsedTime)
+      minutes = getSingleMinutesLamps (Date.minute parsedTime)
 
       lamps = [seconds, fiveHours, hours, fiveMinutes, minutes]
   in
@@ -21,24 +21,23 @@ getClock time =
         |> String.join ""
 
 
-getSeconds : Int -> String
-getSeconds numSeconds =
-   illuminateSeconds numSeconds
-    |> makeString 1 "Y"
+getSecondsLamp : Int -> String
+getSecondsLamp numSeconds =
+    makeString 1 "Y" (illuminateSeconds numSeconds)
 
 
-getFiveHours : Int -> String
-getFiveHours numHours =
+getFiveHoursLamps : Int -> String
+getFiveHoursLamps numHours =
     makeString 4 "R" (numHours // 5)
 
 
-getSingleHours : Int -> String
-getSingleHours numHours =
+getSingleHoursLamps : Int -> String
+getSingleHoursLamps numHours =
     makeString 4 "R" (numHours % 5)
 
 
-getFiveMinutes : Int -> String
-getFiveMinutes numMinutes =
+getFiveMinutesLamps : Int -> String
+getFiveMinutesLamps numMinutes =
   let
       lampList = String.split "" (makeString 11 "Y" (numMinutes // 5))
       recolouredLights = List.indexedMap replaceColours lampList
@@ -47,8 +46,8 @@ getFiveMinutes numMinutes =
         |> String.join ""
 
 
-getSingleMinutes : Int -> String
-getSingleMinutes numMinutes =
+getSingleMinutesLamps : Int -> String
+getSingleMinutesLamps numMinutes =
     makeString 4 "Y" (numMinutes % 5)
 
 
