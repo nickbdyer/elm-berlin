@@ -95,6 +95,9 @@ tests =
       "Given a time 11:37:01, the clock will show ORROOROOOYYRYYRYOOOOYYOO" 
       <| assertEqual "ORROOROOOYYRYYRYOOOOYYOO" (Berlin.getClock("1970/01/01 11:37:01"))
 
+    , test 
+      "Given a invalid date string, an error message will be returned" 
+      <| assertEqual "Unable to parse 'hello' as a date. Dates must be in the ISO 8601 format." (Berlin.getClock("hello"))
     ]
 
 
