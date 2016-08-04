@@ -6,37 +6,36 @@ import String
 
 
 getClock : String -> String
-getClock stringTime = 
+getClock time = 
   let 
       lamps = [getSeconds, getFiveHours, getSingleHours, getFiveMinutes, getSingleMinutes]
   in
-      lamps
-        |> List.map (\x -> x stringTime)
+      List.map (\x -> x time) lamps
         |> String.join ""
 
 
 getSeconds : String -> String
-getSeconds stringTime =
-  getRow stringTime Date.second illuminateSeconds
+getSeconds time =
+  getClockRow time Date.second illuminateSeconds
     |> makeString 1 "R"
 
 
 getFiveHours : String -> String
-getFiveHours stringTime =
-  getRow stringTime Date.hour divideFive
+getFiveHours time =
+  getClockRow time Date.hour divideFive
     |> makeString 4 "R"
 
 
 getSingleHours : String -> String
-getSingleHours stringTime =
-  getRow stringTime Date.hour moduloFive
+getSingleHours time =
+  getClockRow time Date.hour moduloFive
     |> makeString 4 "R"
 
 
 getFiveMinutes : String -> String
-getFiveMinutes stringTime =
+getFiveMinutes time =
   let
-      numLightsOn = getRow stringTime Date.minute divideFive
+      numLightsOn = getClockRow time Date.minute divideFive
       lampList = String.split "" (makeString 11 "Y" numLightsOn)
       recolouredLights = List.indexedMap replaceColours lampList
   in
@@ -45,8 +44,8 @@ getFiveMinutes stringTime =
 
 
 getSingleMinutes : String -> String
-getSingleMinutes stringTime =
-  getRow stringTime Date.minute moduloFive
+getSingleMinutes time =
+  getClockRow time Date.minute moduloFive
     |> makeString 4 "Y"
 
 
@@ -61,12 +60,15 @@ replaceColours lampNumber lampColour =
         lampColour
 
 
-getRow : String -> (Date -> Int) -> (Int -> Int) -> Int
-getRow stringTime unitFunction mathsFunction =
-  Date.fromString stringTime
-    |> Result.withDefault (Date.fromTime 0)
-    |> unitFunction
-    |> mathsFunction
+getClockRow : String -> (Date -> Int) -> (Int -> Int) -> Int
+getClockRow time extractTimeUnit calculateNumberOfIlluminatedLights =
+  let 
+      parsedTime = Date.fromString time
+  in
+      parsedTime
+        |> Result.withDefault (Date.fromTime 0) 
+        |> extractTimeUnit
+        |> calculateNumberOfIlluminatedLights
 
 
 makeString : Int -> String -> Int -> String
