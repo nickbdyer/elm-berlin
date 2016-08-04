@@ -65,19 +65,19 @@ tests =
 
     , test 
       "Given a time 00:00:00, the five hours lamps have 0 illuminations" 
-      <| assertEqual 0 (Berlin.getFiveHours("1970/01/01 00:00:00"))
+      <| assertEqual "OOOO" (Berlin.getFiveHours("1970/01/01 00:00:00"))
 
     , test 
       "Given a time 04:00:00, the five hours lamps have 0 illuminations" 
-      <| assertEqual 0 (Berlin.getFiveHours("1970/01/01 04:00:00"))
+      <| assertEqual "OOOO" (Berlin.getFiveHours("1970/01/01 04:00:00"))
 
     , test 
       "Given a time 14:00:00, the five hours lamps have 2 illuminations" 
-      <| assertEqual 2 (Berlin.getFiveHours("1970/01/01 14:00:00"))
+      <| assertEqual "RROO" (Berlin.getFiveHours("1970/01/01 14:00:00"))
 
     , test 
       "Given a time 23:00:00, the five hours lamps have 4 illuminations" 
-      <| assertEqual 4 (Berlin.getFiveHours("1970/01/01 23:00:00"))
+      <| assertEqual "RRRR" (Berlin.getFiveHours("1970/01/01 23:00:00"))
 
     ]
 

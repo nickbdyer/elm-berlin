@@ -22,9 +22,10 @@ getSingleHours stringTime =
     |> makeString 4 "R"
     
 
-getFiveHours : String -> Int
+getFiveHours : String -> String
 getFiveHours stringTime =
   getRow stringTime Date.hour divideFive
+    |> makeString 4 "R"
 
 
 getSeconds : String -> String
