@@ -1,8 +1,8 @@
 module Berlin exposing (getSingleMinutes, getSingleHours, getSeconds, getFiveMinutes, getFiveHours)
 
 
-import Date exposing (fromString)
-import String exposing (repeat)
+import Date exposing (fromString, Date)
+import String
 
 
 getSingleMinutes : String -> String
@@ -16,9 +16,10 @@ getFiveMinutes stringTime =
   getRow stringTime Date.minute divideFive
 
 
-getSingleHours : String -> Int
+getSingleHours : String -> String
 getSingleHours stringTime =
   getRow stringTime Date.hour moduloFive
+    |> makeString 4 "R"
     
 
 getFiveHours : String -> Int
@@ -26,11 +27,13 @@ getFiveHours stringTime =
   getRow stringTime Date.hour divideFive
 
 
-getSeconds : String -> Int
+getSeconds : String -> String
 getSeconds stringTime =
   getRow stringTime Date.second illuminateSeconds
+    |> makeString 1 "R"
 
 
+getRow : String -> (Date -> Int) -> (Int -> Int) -> Int
 getRow stringTime unitFunction mathsFunction =
   Date.fromString stringTime
     |> Result.withDefault (Date.fromTime 0)
@@ -40,10 +43,13 @@ getRow stringTime unitFunction mathsFunction =
 
 makeString : Int -> String -> Int -> String
 makeString numLightsTotal lightPattern numLightsOn =
-  List.repeat numLightsTotal "O"
-    |> List.drop numLightsOn
-    |> List.append (List.repeat numLightsOn lightPattern) 
-    |> String.join ""
+  let 
+      numLightsOff = numLightsTotal - numLightsOn
+      offLights = List.repeat numLightsOff "O"
+      onLights = List.repeat numLightsOn lightPattern
+      totalLights = onLights ++ offLights
+  in
+      String.join "" totalLights
 
 
 divideFive =

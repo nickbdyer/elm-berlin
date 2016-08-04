@@ -21,31 +21,31 @@ tests =
 
     , test 
       "Given a time 00:00:00, the single hours row has 0 illuminations" 
-      <| assertEqual 0 (Berlin.getSingleHours("1970/01/01 00:00:00"))
+      <| assertEqual "OOOO" (Berlin.getSingleHours("1970/01/01 00:00:00"))
 
     , test 
       "Given a time 03:00:00, the single hours row has 3 illuminations" 
-      <| assertEqual 3 (Berlin.getSingleHours("1970/01/01 03:00:00"))
+      <| assertEqual "RRRO" (Berlin.getSingleHours("1970/01/01 03:00:00"))
 
     , test 
       "Given a time 05:00:00, the single hours row has 0 illuminations" 
-      <| assertEqual 0 (Berlin.getSingleHours("1970/01/01 05:00:00"))
+      <| assertEqual "OOOO" (Berlin.getSingleHours("1970/01/01 05:00:00"))
 
     , test 
       "Given a time 00:00:00, the seconds lamp has 1 illumination" 
-      <| assertEqual 1 (Berlin.getSeconds("1970/01/01 00:00:00"))
+      <| assertEqual "R" (Berlin.getSeconds("1970/01/01 00:00:00"))
 
     , test 
       "Given a time 00:00:01, the seconds lamp has 0 illuminations" 
-      <| assertEqual 0 (Berlin.getSeconds("1970/01/01 00:00:01"))
+      <| assertEqual "O" (Berlin.getSeconds("1970/01/01 00:00:01"))
 
     , test 
       "Given a time 00:00:02, the seconds lamp has 1 illumination" 
-      <| assertEqual 1 (Berlin.getSeconds("1970/01/01 00:00:02"))
+      <| assertEqual "R" (Berlin.getSeconds("1970/01/01 00:00:02"))
 
     , test 
       "Given a time 00:00:59, the seconds lamp has 0 illuminations" 
-      <| assertEqual 0 (Berlin.getSeconds("1970/01/01 00:00:59"))
+      <| assertEqual "O" (Berlin.getSeconds("1970/01/01 00:00:59"))
 
     , test 
       "Given a time 00:00:00, the five minutes lamps have 0 illuminations" 
