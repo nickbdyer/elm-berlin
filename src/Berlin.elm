@@ -8,45 +8,48 @@ import String
 getClock : String -> String
 getClock time = 
   let 
-      lamps = [getSeconds, getFiveHours, getSingleHours, getFiveMinutes, getSingleMinutes]
+      parsedTime = Date.fromString time |> Result.withDefault (Date.fromTime 0) 
+      seconds = getSeconds (Date.second parsedTime)
+      fiveHours = getFiveHours (Date.hour parsedTime)
+      hours = getSingleHours (Date.hour parsedTime)
+      fiveMinutes = getFiveMinutes (Date.minute parsedTime)
+      minutes = getSingleMinutes (Date.minute parsedTime)
+
+      lamps = [seconds, fiveHours, hours, fiveMinutes, minutes]
   in
-      List.map (\x -> x time) lamps
+      lamps
         |> String.join ""
 
 
-getSeconds : String -> String
-getSeconds time =
-  getClockRow time Date.second illuminateSeconds
+getSeconds : Int -> String
+getSeconds numSeconds =
+   illuminateSeconds numSeconds
     |> makeString 1 "R"
 
 
-getFiveHours : String -> String
-getFiveHours time =
-  getClockRow time Date.hour divideFive
-    |> makeString 4 "R"
+getFiveHours : Int -> String
+getFiveHours numHours =
+    makeString 4 "R" (numHours // 5)
 
 
-getSingleHours : String -> String
-getSingleHours time =
-  getClockRow time Date.hour moduloFive
-    |> makeString 4 "R"
+getSingleHours : Int -> String
+getSingleHours numHours =
+    makeString 4 "R" (numHours % 5)
 
 
-getFiveMinutes : String -> String
-getFiveMinutes time =
+getFiveMinutes : Int -> String
+getFiveMinutes numMinutes =
   let
-      numLightsOn = getClockRow time Date.minute divideFive
-      lampList = String.split "" (makeString 11 "Y" numLightsOn)
+      lampList = String.split "" (makeString 11 "Y" (numMinutes // 5))
       recolouredLights = List.indexedMap replaceColours lampList
   in
       recolouredLights
         |> String.join ""
 
 
-getSingleMinutes : String -> String
-getSingleMinutes time =
-  getClockRow time Date.minute moduloFive
-    |> makeString 4 "Y"
+getSingleMinutes : Int -> String
+getSingleMinutes numMinutes =
+    makeString 4 "Y" (numMinutes % 5)
 
 
 replaceColours : Int -> String -> String
@@ -60,17 +63,6 @@ replaceColours lampNumber lampColour =
         lampColour
 
 
-getClockRow : String -> (Date -> Int) -> (Int -> Int) -> Int
-getClockRow time extractTimeUnit calculateNumberOfIlluminatedLights =
-  let 
-      parsedTime = Date.fromString time
-  in
-      parsedTime
-        |> Result.withDefault (Date.fromTime 0) 
-        |> extractTimeUnit
-        |> calculateNumberOfIlluminatedLights
-
-
 makeString : Int -> String -> Int -> String
 makeString numLightsTotal lightPattern numLightsOn =
   let 
@@ -82,15 +74,7 @@ makeString numLightsTotal lightPattern numLightsOn =
       String.join "" totalLights
 
 
-divideFive =
-  (\divisor num -> num // divisor) 5
-
-
-moduloFive =
-  (\mod num -> num % mod) 5
-
-
 illuminateSeconds value = 
   case value of
     0 -> 1
-    value -> (value + 1) `rem` 2
+    _ -> (value + 1) % 2
