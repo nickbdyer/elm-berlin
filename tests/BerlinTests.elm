@@ -79,6 +79,22 @@ tests =
       "Given a time 23:00:00, the five hours lamps have 4 illuminations" 
       <| assertEqual "RRRR" (Berlin.getFiveHours("1970/01/01 23:00:00"))
 
+    , test 
+      "Given a time 00:00:00, the clock will show ROOOOOOOOOOOOOOOOOOOOOOO" 
+      <| assertEqual "ROOOOOOOOOOOOOOOOOOOOOOO" (Berlin.getClock("1970/01/01 00:00:00"))
+
+    , test 
+      "Given a time 23:59:59, the clock will show ORRRRRRROYYRYYRYYRYYYYYY" 
+      <| assertEqual "ORRRRRRROYYRYYRYYRYYYYYY" (Berlin.getClock("1970/01/01 23:59:59"))
+
+    , test 
+      "Given a time 16:50:06, the clock will show RRRROROOOYYRYYRYYRYOOOOO" 
+      <| assertEqual "RRRROROOOYYRYYRYYRYOOOOO" (Berlin.getClock("1970/01/01 16:50:06"))
+
+    , test 
+      "Given a time 11:37:01, the clock will show ORROOROOOYYRYYRYOOOOYYOO" 
+      <| assertEqual "ORROOROOOYYRYYRYOOOOYYOO" (Berlin.getClock("1970/01/01 11:37:01"))
+
     ]
 
 

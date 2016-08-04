@@ -1,43 +1,53 @@
-module Berlin exposing (getSingleMinutes, getSingleHours, getSeconds, getFiveMinutes, getFiveHours)
+module Berlin exposing (getSingleMinutes, getSingleHours, getSeconds, getFiveMinutes, getFiveHours, getClock)
 
 
 import Date exposing (fromString, Date)
 import String
 
 
+getClock : String -> String
+getClock stringTime = 
+  let 
+      lamps = [getSeconds, getFiveHours, getSingleHours, getFiveMinutes, getSingleMinutes]
+  in
+      lamps
+        |> List.map (\x -> x stringTime)
+        |> String.join ""
+
+
 getSingleMinutes : String -> String
 getSingleMinutes stringTime =
   getRow stringTime Date.minute moduloFive
     |> makeString 4 "Y"
- 
+
 
 getFiveMinutes : String -> String
 getFiveMinutes stringTime =
   let
-    numLightsOn = getRow stringTime Date.minute divideFive
-    lampList = String.split "" (makeString 11 "Y" numLightsOn)
-    recolouredLights = List.indexedMap replaceColours lampList
+      numLightsOn = getRow stringTime Date.minute divideFive
+      lampList = String.split "" (makeString 11 "Y" numLightsOn)
+      recolouredLights = List.indexedMap replaceColours lampList
   in
-    recolouredLights
-      |> String.join ""
+      recolouredLights
+        |> String.join ""
 
 
 replaceColours : Int -> String -> String
 replaceColours lampNumber lampColour =
   let
-    redLightPositions = [2, 5, 8]
+      redLightPositions = [2, 5, 8]
   in
-    if (List.member lampNumber redLightPositions) && lampColour == "Y" then
-      "R"
-    else
-      lampColour
+      if (List.member lampNumber redLightPositions) && lampColour == "Y" then
+        "R"
+      else
+        lampColour
 
 
 getSingleHours : String -> String
 getSingleHours stringTime =
   getRow stringTime Date.hour moduloFive
     |> makeString 4 "R"
-    
+
 
 getFiveHours : String -> String
 getFiveHours stringTime =
