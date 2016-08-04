@@ -11,9 +11,10 @@ getSingleMinutes stringTime =
     |> makeString 4 "Y"
  
 
-getFiveMinutes : String -> Int
+getFiveMinutes : String -> String
 getFiveMinutes stringTime =
   getRow stringTime Date.minute divideFive
+    |> makeString 11 "Y"
 
 
 getSingleHours : String -> String
