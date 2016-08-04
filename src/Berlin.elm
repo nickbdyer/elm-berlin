@@ -7,14 +7,19 @@ import String
 
 getClock : String -> String
 getClock time = 
-  let 
-      parsedTime = Date.fromString time |> Result.withDefault (Date.fromTime 0) 
-      seconds = getSecondsLamp (Date.second parsedTime)
-      fiveHours = getFiveHoursLamps (Date.hour parsedTime)
-      hours = getSingleHoursLamps (Date.hour parsedTime)
-      fiveMinutes = getFiveMinutesLamps (Date.minute parsedTime)
-      minutes = getSingleMinutesLamps (Date.minute parsedTime)
+  case Date.fromString time of 
+    Err message -> message
+    Ok value -> getAllLamps value
 
+
+getAllLamps : Date.Date -> String
+getAllLamps date =
+  let
+      seconds = getSecondsLamp (Date.second date)
+      fiveHours = getFiveHoursLamps (Date.hour date)
+      hours = getSingleHoursLamps (Date.hour date)
+      fiveMinutes = getFiveMinutesLamps (Date.minute date)
+      minutes = getSingleMinutesLamps (Date.minute date)
       lamps = [seconds, fiveHours, hours, fiveMinutes, minutes]
   in
       lamps
@@ -23,17 +28,17 @@ getClock time =
 
 getSecondsLamp : Int -> String
 getSecondsLamp numSeconds =
-    makeString 1 "Y" (illuminateSeconds numSeconds)
+  makeString 1 "Y" (illuminateSeconds numSeconds)
 
 
 getFiveHoursLamps : Int -> String
 getFiveHoursLamps numHours =
-    makeString 4 "R" (numHours // 5)
+  makeString 4 "R" (numHours // 5)
 
 
 getSingleHoursLamps : Int -> String
 getSingleHoursLamps numHours =
-    makeString 4 "R" (numHours % 5)
+  makeString 4 "R" (numHours % 5)
 
 
 getFiveMinutesLamps : Int -> String
@@ -48,7 +53,7 @@ getFiveMinutesLamps numMinutes =
 
 getSingleMinutesLamps : Int -> String
 getSingleMinutesLamps numMinutes =
-    makeString 4 "Y" (numMinutes % 5)
+  makeString 4 "Y" (numMinutes % 5)
 
 
 replaceColours : Int -> String -> String
