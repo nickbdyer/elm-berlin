@@ -15,10 +15,22 @@ getClock stringTime =
         |> String.join ""
 
 
-getSingleMinutes : String -> String
-getSingleMinutes stringTime =
-  getRow stringTime Date.minute moduloFive
-    |> makeString 4 "Y"
+getSeconds : String -> String
+getSeconds stringTime =
+  getRow stringTime Date.second illuminateSeconds
+    |> makeString 1 "R"
+
+
+getFiveHours : String -> String
+getFiveHours stringTime =
+  getRow stringTime Date.hour divideFive
+    |> makeString 4 "R"
+
+
+getSingleHours : String -> String
+getSingleHours stringTime =
+  getRow stringTime Date.hour moduloFive
+    |> makeString 4 "R"
 
 
 getFiveMinutes : String -> String
@@ -32,6 +44,12 @@ getFiveMinutes stringTime =
         |> String.join ""
 
 
+getSingleMinutes : String -> String
+getSingleMinutes stringTime =
+  getRow stringTime Date.minute moduloFive
+    |> makeString 4 "Y"
+
+
 replaceColours : Int -> String -> String
 replaceColours lampNumber lampColour =
   let
@@ -41,24 +59,6 @@ replaceColours lampNumber lampColour =
         "R"
       else
         lampColour
-
-
-getSingleHours : String -> String
-getSingleHours stringTime =
-  getRow stringTime Date.hour moduloFive
-    |> makeString 4 "R"
-
-
-getFiveHours : String -> String
-getFiveHours stringTime =
-  getRow stringTime Date.hour divideFive
-    |> makeString 4 "R"
-
-
-getSeconds : String -> String
-getSeconds stringTime =
-  getRow stringTime Date.second illuminateSeconds
-    |> makeString 1 "R"
 
 
 getRow : String -> (Date -> Int) -> (Int -> Int) -> Int
@@ -83,8 +83,10 @@ makeString numLightsTotal lightPattern numLightsOn =
 divideFive =
   (\divisor num -> num // divisor) 5
 
+
 moduloFive =
   (\mod num -> num % mod) 5
+
 
 illuminateSeconds value = 
   case value of
