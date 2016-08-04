@@ -24,7 +24,7 @@ getClock time =
 getSeconds : Int -> String
 getSeconds numSeconds =
    illuminateSeconds numSeconds
-    |> makeString 1 "R"
+    |> makeString 1 "Y"
 
 
 getFiveHours : Int -> String

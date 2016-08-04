@@ -33,7 +33,7 @@ tests =
 
     , test 
       "Given a time 00:00:00, the seconds lamp has 1 illumination" 
-      <| assertEqual "R" (Berlin.getSeconds(0))
+      <| assertEqual "Y" (Berlin.getSeconds(0))
 
     , test 
       "Given a time 00:00:01, the seconds lamp has 0 illuminations" 
@@ -41,7 +41,7 @@ tests =
 
     , test 
       "Given a time 00:00:02, the seconds lamp has 1 illumination" 
-      <| assertEqual "R" (Berlin.getSeconds(2))
+      <| assertEqual "Y" (Berlin.getSeconds(2))
 
     , test 
       "Given a time 00:00:59, the seconds lamp has 0 illuminations" 
@@ -81,7 +81,7 @@ tests =
 
     , test 
       "Given a time 00:00:00, the clock will show ROOOOOOOOOOOOOOOOOOOOOOO" 
-      <| assertEqual "ROOOOOOOOOOOOOOOOOOOOOOO" (Berlin.getClock("1970/01/01 00:00:00"))
+      <| assertEqual "YOOOOOOOOOOOOOOOOOOOOOOO" (Berlin.getClock("1970/01/01 00:00:00"))
 
     , test 
       "Given a time 23:59:59, the clock will show ORRRRRRROYYRYYRYYRYYYYYY" 
@@ -89,7 +89,7 @@ tests =
 
     , test 
       "Given a time 16:50:06, the clock will show RRRROROOOYYRYYRYYRYOOOOO" 
-      <| assertEqual "RRRROROOOYYRYYRYYRYOOOOO" (Berlin.getClock("1970/01/01 16:50:06"))
+      <| assertEqual "YRRROROOOYYRYYRYYRYOOOOO" (Berlin.getClock("1970/01/01 16:50:06"))
 
     , test 
       "Given a time 11:37:01, the clock will show ORROOROOOYYRYYRYOOOOYYOO" 
