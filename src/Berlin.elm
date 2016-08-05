@@ -7,9 +7,7 @@ import String
 
 getClock : String -> Result String String
 getClock time = 
-  case Date.fromString time of 
-    Err message -> Err message
-    Ok value -> Ok (getAllLamps value)
+  Result.map getAllLamps (Date.fromString time)
 
 
 getAllLamps : Date.Date -> String
