@@ -26,5 +26,5 @@ $ elm-package install
 ### Run Tests
 
 ```
-$ elm-make --yes --output test.js tests/Tests.elm; node test.js
+$ sh runtests.sh
 ```

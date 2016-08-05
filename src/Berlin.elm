@@ -1,52 +1,56 @@
-module Berlin exposing (getSingleMinutes, getSingleHours, getSeconds, getFiveMinutes, getFiveHours, getClock)
+module Berlin exposing (getSingleMinutesLamps, getSingleHoursLamps, getSecondsLamp, getFiveMinutesLamps, getFiveHoursLamps, getClock)
 
 
 import Date exposing (fromString, Date)
 import String
 
 
-getClock : String -> String
+getClock : String -> Result String String
 getClock time = 
-  let 
-      lamps = [getSeconds, getFiveHours, getSingleHours, getFiveMinutes, getSingleMinutes]
-  in
-      List.map (\x -> x time) lamps
-        |> String.join ""
+  Result.map getAllLamps (Date.fromString time)
 
 
-getSeconds : String -> String
-getSeconds time =
-  getClockRow time Date.second illuminateSeconds
-    |> makeString 1 "R"
-
-
-getFiveHours : String -> String
-getFiveHours time =
-  getClockRow time Date.hour divideFive
-    |> makeString 4 "R"
-
-
-getSingleHours : String -> String
-getSingleHours time =
-  getClockRow time Date.hour moduloFive
-    |> makeString 4 "R"
-
-
-getFiveMinutes : String -> String
-getFiveMinutes time =
+getAllLamps : Date.Date -> String
+getAllLamps date =
   let
-      numLightsOn = getClockRow time Date.minute divideFive
-      lampList = String.split "" (makeString 11 "Y" numLightsOn)
+      seconds = getSecondsLamp (Date.second date)
+      fiveHours = getFiveHoursLamps (Date.hour date)
+      hours = getSingleHoursLamps (Date.hour date)
+      fiveMinutes = getFiveMinutesLamps (Date.minute date)
+      minutes = getSingleMinutesLamps (Date.minute date)
+      lamps = [seconds, fiveHours, hours, fiveMinutes, minutes]
+  in
+      String.join "" lamps
+
+
+getSecondsLamp : Int -> String
+getSecondsLamp numSeconds =
+  makeString 1 "Y" (illuminateSeconds numSeconds)
+
+
+getFiveHoursLamps : Int -> String
+getFiveHoursLamps numHours =
+  makeString 4 "R" (numHours // 5)
+
+
+getSingleHoursLamps : Int -> String
+getSingleHoursLamps numHours =
+  makeString 4 "R" (numHours % 5)
+
+
+getFiveMinutesLamps : Int -> String
+getFiveMinutesLamps numMinutes =
+  let
+      lampList = String.split "" (makeString 11 "Y" (numMinutes // 5))
       recolouredLights = List.indexedMap replaceColours lampList
   in
       recolouredLights
         |> String.join ""
 
 
-getSingleMinutes : String -> String
-getSingleMinutes time =
-  getClockRow time Date.minute moduloFive
-    |> makeString 4 "Y"
+getSingleMinutesLamps : Int -> String
+getSingleMinutesLamps numMinutes =
+  makeString 4 "Y" (numMinutes % 5)
 
 
 replaceColours : Int -> String -> String
@@ -60,17 +64,6 @@ replaceColours lampNumber lampColour =
         lampColour
 
 
-getClockRow : String -> (Date -> Int) -> (Int -> Int) -> Int
-getClockRow time extractTimeUnit calculateNumberOfIlluminatedLights =
-  let 
-      parsedTime = Date.fromString time
-  in
-      parsedTime
-        |> Result.withDefault (Date.fromTime 0) 
-        |> extractTimeUnit
-        |> calculateNumberOfIlluminatedLights
-
-
 makeString : Int -> String -> Int -> String
 makeString numLightsTotal lightPattern numLightsOn =
   let 
@@ -82,15 +75,7 @@ makeString numLightsTotal lightPattern numLightsOn =
       String.join "" totalLights
 
 
-divideFive =
-  (\divisor num -> num // divisor) 5
-
-
-moduloFive =
-  (\mod num -> num % mod) 5
-
-
 illuminateSeconds value = 
   case value of
     0 -> 1
-    value -> (value + 1) `rem` 2
+    _ -> (value + 1) % 2
