@@ -5,11 +5,11 @@ import Date exposing (fromString, Date)
 import String
 
 
-getClock : String -> String
+getClock : String -> Result String String
 getClock time = 
   case Date.fromString time of 
-    Err message -> message
-    Ok value -> getAllLamps value
+    Err message -> Err message
+    Ok value -> Ok (getAllLamps value)
 
 
 getAllLamps : Date.Date -> String
