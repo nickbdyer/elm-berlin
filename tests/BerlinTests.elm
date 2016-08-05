@@ -81,23 +81,23 @@ tests =
 
     , test 
       "Given a time 00:00:00, the clock will show ROOOOOOOOOOOOOOOOOOOOOOO" 
-      <| assertEqual (Ok "YOOOOOOOOOOOOOOOOOOOOOOO") (Berlin.getClock("1970/01/01 00:00:00"))
+      <| assertEqual "YOOOOOOOOOOOOOOOOOOOOOOO" (Berlin.getClock("1970/01/01 00:00:00"))
 
     , test 
       "Given a time 23:59:59, the clock will show ORRRRRRROYYRYYRYYRYYYYYY" 
-      <| assertEqual (Ok "ORRRRRRROYYRYYRYYRYYYYYY") (Berlin.getClock("1970/01/01 23:59:59"))
+      <| assertEqual "ORRRRRRROYYRYYRYYRYYYYYY" (Berlin.getClock("1970/01/01 23:59:59"))
 
     , test 
       "Given a time 16:50:06, the clock will show RRRROROOOYYRYYRYYRYOOOOO" 
-      <| assertEqual (Ok "YRRROROOOYYRYYRYYRYOOOOO") (Berlin.getClock("1970/01/01 16:50:06"))
+      <| assertEqual "YRRROROOOYYRYYRYYRYOOOOO" (Berlin.getClock("1970/01/01 16:50:06"))
 
     , test 
       "Given a time 11:37:01, the clock will show ORROOROOOYYRYYRYOOOOYYOO" 
-      <| assertEqual (Ok "ORROOROOOYYRYYRYOOOOYYOO") (Berlin.getClock("1970/01/01 11:37:01"))
+      <| assertEqual "ORROOROOOYYRYYRYOOOOYYOO" (Berlin.getClock("1970/01/01 11:37:01"))
 
     , test 
       "Given a invalid date string, an error message will be returned" 
-      <| assertEqual (Err "Unable to parse 'hello' as a date. Dates must be in the ISO 8601 format.") (Berlin.getClock("hello"))
+      <| assertEqual "Unable to parse 'hello' as a date. Dates must be in the ISO 8601 format." (Berlin.getClock("hello"))
     ]
 
 
