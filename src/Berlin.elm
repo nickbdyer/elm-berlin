@@ -20,8 +20,7 @@ getAllLamps date =
       minutes = getSingleMinutesLamps (Date.minute date)
       lamps = [seconds, fiveHours, hours, fiveMinutes, minutes]
   in
-      lamps
-        |> String.join ""
+      String.join "" lamps
 
 
 getSecondsLamp : Int -> String
